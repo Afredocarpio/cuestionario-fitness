@@ -20,6 +20,7 @@
     .container {
       max-width: 960px;
       margin: auto;
+      transition: filter 0.5s ease;
     }
     h1 {
       color: #f6adc6;
@@ -116,7 +117,6 @@
       transition: opacity 0.5s ease, transform 0.3s ease;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.5s ease;
       position: fixed;
       top: 50%;
       left: 50%;
@@ -141,9 +141,9 @@
     }
     .blurred {
       filter: blur(4px);
+      pointer-events: none;
     }
-  </style>
-<style>
+    
     .popup-icon {
       animation: float 2s ease-in-out infinite;
       display: inline-block;
@@ -159,8 +159,7 @@
       }
     }
     
-    /* NUEVOS ESTILOS - SOLO AGREGAMOS LO NECESARIO */
-    /* Mejora para el popup de advertencia */
+    /* Mejoras de estilo para popups */
     #warningPopup {
       max-width: 500px;
       width: 90%;
@@ -173,6 +172,19 @@
       margin-bottom: 15px;
     }
     
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
     /* Mantener emoji con texto */
     label {
       display: flex;
@@ -183,6 +195,39 @@
     label input[type="checkbox"] {
       flex-shrink: 0;
       margin-right: 10px;
+    }
+    
+    /* Estilos para inputs numéricos */
+    input[type="number"], input[type="email"] {
+      width: 100%; 
+      padding: 8px; 
+      border-radius: 6px; 
+      border: 1px solid #a86ca4; 
+      background: #3b3b51; 
+      color: #f6dff0;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    
+    /* Estilos para días de entrenamiento */
+    .dias-entreno {
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 10px 8px; 
+      width: 100%; 
+      justify-content: space-between; 
+      margin-top: 4px;
+    }
+    
+    .dias-entreno label {
+      transition: all 0.3s ease;
+    }
+    
+    .dias-entreno label:hover {
+      background-color: #3b3b51;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(255, 192, 203, 0.3);
+      padding: 6px;
     }
   </style>
 </head>
@@ -244,184 +289,219 @@
         <label><input type="checkbox" name="suplementacion[]" value="No me interesa tomar suplementos ❌"> No me interesa tomar suplementos ❌</label>
         <textarea name="suplementos_interes" placeholder="¿Hay algún suplemento específico que quieras probar o te hayan recomendado?"></textarea>
       </section>
+      
       <section>
         <h2>🎯 6. Motivación <span style='font-size:14px; color:#ccc;'>(elige una o más según cómo te sientas)</span></h2>
         <label><input type="checkbox" name="motivacion_check[]" value="Quiero resultados rápidos con poco esfuerzo ⏳"> Quiero resultados rápidos con poco esfuerzo ⏳</label>
         <label><input type="checkbox" name="motivacion_check[]" value="Estoy dispuesta a aprender y crear hábitos 📈"> Estoy dispuesta a aprender y crear hábitos 📈</label>
         <label><input type="checkbox" name="motivacion_check[]" value="Estoy 100% comprometida con mi cambio 💥"> Estoy 100% comprometida con mi cambio 💥</label>
         <textarea name="motivacion" placeholder="¿Qué te haría feliz al verte frente al espejo en 3 meses?"></textarea>
+      </section>
+
+      <section>
+        <h2>📝 Información Personal <span style='font-size:14px; color:#ccc;'>(completa los campos requeridos)</span></h2>
+        <label for="edad">Edad:</label>
+        <input type="number" name="edad" id="edad" required min="12" max="90">
+
+        <label for="estatura">Estatura (cm):</label>
+        <input type="number" name="estatura" id="estatura" required min="100" max="250">
+
+        <label for="peso">Peso actual (kg):</label>
+        <input type="number" name="peso" id="peso" required min="30" max="200">
+
+        <label for="condiciones">¿Tienes condiciones médicas?</label>
+        <textarea name="condiciones" id="condiciones" placeholder="Ej: hipotiroidismo, anemia..." required></textarea>
+
+        <label for="sueno">Horas de sueño por noche:</label>
+        <input type="number" name="sueno" id="sueno" required min="3" max="12">
+
+        <label for="tiempo_entreno">Tiempo para entrenar al día (min):</label>
+        <input type="number" name="tiempo_entreno" id="tiempo_entreno" required min="10" max="180">
+
+        <h3 style='margin-top:20px; margin-bottom: 10px;'>¿Qué días puedes entrenar?</h3>
+        <div class="dias-entreno">
+          <label><input type="checkbox" name="dias_entreno[]" value="Lunes"> Lunes</label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Martes"> Martes</label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Miércoles"> Miércoles</label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Jueves"> Jueves</label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Viernes"> Viernes</label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Sábado"> Sábado</label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Domingo"> Domingo</label>
+        </div>
+      </section>
       
-
-</section>
-
-<section>
-  <h2>📝 Información Personal <span style='font-size:14px; color:#ccc;'>(completa los campos requeridos)</span></h2>
-  <label for="edad">Edad:</label>
-  <input type="number" name="edad" id="edad" required min="12" max="90" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #a86ca4; background: #3b3b51; color: #f6dff0;">
-
-  <label for="estatura">Estatura (cm):</label>
-  <input type="number" name="estatura" id="estatura" required min="100" max="250" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #a86ca4; background: #3b3b51; color: #f6dff0;">
-
-  <label for="peso">Peso actual (kg):</label>
-  <input type="number" name="peso" id="peso" required min="30" max="200" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #a86ca4; background: #3b3b51; color: #f6dff0;">
-
-  <label for="condiciones">¿Tienes condiciones médicas?</label>
-  <textarea name="condiciones" id="condiciones" placeholder="Ej: hipotiroidismo, anemia..." required></textarea>
-
-  <label for="sueno">Horas de sueño por noche:</label>
-  <input type="number" name="sueno" id="sueno" required min="3" max="12" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #a86ca4; background: #3b3b51; color: #f6dff0;">
-
-  <label for="tiempo_entreno">Tiempo para entrenar al día (min):</label>
-  <input type="number" name="tiempo_entreno" id="tiempo_entreno" required min="10" max="180" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #a86ca4; background: #3b3b51; color: #f6dff0;">
-
-  <h3 style='margin-top:8px; margin-bottom: 0;'>¿Qué días puedes entrenar?</h3>
-<div style="display: flex; flex-wrap: wrap; gap: 15px;">
-  <style>
-    .dias-entreno label {
-      transition: all 0.3s ease;
-    }
-    .dias-entreno label:hover {
-      background-color: #3b3b51;
-      border-radius: 6px;
-      box-shadow: 0 0 8px rgba(255, 192, 203, 0.3);
-      padding: 6px;
-    }
-  </style>
-  <div class="dias-entreno" style="display: flex; flex-wrap: wrap; gap: 10px 8px; width: 100%; justify-content: space-between; margin-top: 4px;">
-  </div>
-<label><input type="checkbox" name="dias_entreno[]" value="Lunes"> Lunes</label>
-  <label><input type="checkbox" name="dias_entreno[]" value="Martes"> Martes</label>
-  <label><input type="checkbox" name="dias_entreno[]" value="Miércoles"> Miércoles</label>
-  <label><input type="checkbox" name="dias_entreno[]" value="Jueves"> Jueves</label>
-  <label><input type="checkbox" name="dias_entreno[]" value="Viernes"> Viernes</label>
-  <label><input type="checkbox" name="dias_entreno[]" value="Sábado"> Sábado</label>
-  <label><input type="checkbox" name="dias_entreno[]" value="Domingo"> Domingo</label>
-</section>
-</form>
-<div style="text-align: center; margin-top: 20px;">
-  <button type="button" onclick="validateForm(event)">🚀 Enviar Respuestas</button>
-</div>
+      <div style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
+        <button type="button" onclick="validateForm(event)">🚀 Enviar Respuestas</button>
+      </div>
     </form>
   </div>
 
+  <div id="overlay" class="overlay"></div>
+  
   <div id="popup" class="popup">
-  <div class="popup-icon">💖</div>
-  <h3>¡Gracias por completar el cuestionario!</h3>
-  <p style="font-size:14px; color:#ccc; margin-top: 16px;">Deja tu correo electrónico para enviarte tus resultados personalizados. Esta rutina puede adaptarse mejor si conocemos más de ti.</p>
-  <p style="font-size:13px; color:#aaa; margin-top: 6px;">Por favor incluye tu edad, estatura, peso actual y cualquier dato que consideres importante.</p>
-  <input type="email" id="popupEmail" name="correo_usuario" placeholder="Ej: mariafit@gmail.com" required style="width:100%; padding:10px; font-size:15px; border-radius:8px; border:1px solid #a86ca4; background:#3b3b51; color:#f6dff0; margin-top:10px;">
+    <div class="popup-icon">💖</div>
+    <h3>¡Gracias por completar el cuestionario!</h3>
+    <p style="font-size:14px; color:#ccc; margin-top: 16px;">Deja tu correo electrónico para enviarte tus resultados personalizados. Esta rutina puede adaptarse mejor si conocemos más de ti.</p>
+    <p style="font-size:13px; color:#aaa; margin-top: 6px;">Por favor incluye tu edad, estatura, peso actual y cualquier dato que consideres importante.</p>
+    <input type="email" id="popupEmail" name="correo_usuario" placeholder="Ej: mariafit@gmail.com" required>
     <button type="button" onclick="submitPopupEmail()" style="margin-top: 16px;" id="popupSendButton">Enviar</button>
-  <span onclick="closePopup()" style="position:absolute;top:10px;right:15px;font-size:20px;cursor:pointer;">❌</span>
+    <span onclick="closePopup()" style="position:absolute;top:10px;right:15px;font-size:20px;cursor:pointer;">❌</span>
   </div>
 
-<div id="warningPopup" class="popup">
-  <div class="popup-icon">⚠️</div>
-  <h3>Por favor selecciona al menos una opción, completa algún campo de texto y responde la sección de información personal.</h3>
-  <button onclick="closeWarning()">Cerrar</button>
-</div>
+  <div id="warningPopup" class="popup">
+    <div class="popup-icon">⚠️</div>
+    <h3>Por favor selecciona al menos una opción, completa algún campo de texto y responde la sección de información personal.</h3>
+    <button onclick="closeWarning()">Cerrar</button>
+  </div>
 
-<script>
-function validateForm(event) {
-  event.preventDefault();
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-  const textareas = document.querySelectorAll('textarea');
-  let hasChecked = checkboxes.length > 0;
-  let hasText = false;
-  textareas.forEach(t => {
-    if (t.value.trim() !== '') hasText = true;
-  });
-
-  // Verificar que se hayan completado los campos requeridos
-  const requiredFields = document.querySelectorAll('input[required], textarea[required]');
-  let allRequiredFilled = true;
-  requiredFields.forEach(field => {
-    if (field.value.trim() === '') allRequiredFilled = false;
-  });
-
-  if (!hasChecked || !hasText || !allRequiredFilled) {
-    const warning = document.getElementById('warningPopup');
-    warning.style.display = 'block';
-    setTimeout(() => {
-      warning.style.opacity = '1';
-      warning.style.pointerEvents = 'auto';
-    }, 10);
-    return false;
-  }
-
-  document.getElementById('main-content').classList.add('blurred');
-  const popup = document.getElementById('popup');
-  popup.style.display = 'block';
-  setTimeout(() => {
-    popup.style.opacity = '1';
-    popup.style.pointerEvents = 'auto';
-  }, 10);
-  return false;
-}
-
-function closePopup() {
-  const popup = document.getElementById('popup');
-  popup.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  popup.style.opacity = '0';
-  popup.style.transform = 'translate(-50%, -55%) scale(0.85)';
-  popup.style.pointerEvents = 'none';
-  setTimeout(() => {
-    popup.style.display = 'none';
-    popup.style.transform = 'translate(-50%, -50%) scale(1)';
-  }, 500);
-  document.getElementById('main-content').classList.remove('blurred');
-}
-
-function closeWarning() {
-  const warning = document.getElementById('warningPopup');
-  warning.style.opacity = '0';
-  warning.style.pointerEvents = 'none';
-  setTimeout(() => {
-    warning.style.display = 'none';
-  }, 500);
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  const now = new Date();
-  const fecha = now.toLocaleDateString();
-  const hora = now.toLocaleTimeString();
-  const randomID = Math.random().toString(36).substring(2, 7).toUpperCase();
-  document.getElementById("subjectField").value = `Nuevo Cuestionario Fitness #${randomID} - ${fecha} ${hora}`;
-  document.getElementById("timestamp").value = `${fecha} ${hora}`;
-});
-
-function submitPopupEmail() {
-  const emailInput = document.getElementById("popupEmail");
-  
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (emailPattern.test(emailInput.value)) {
-    const form = document.getElementById("fitnessForm");
-    const inputHidden = document.createElement('input');
-    inputHidden.type = 'hidden';
-    inputHidden.name = 'correo_usuario';
-    inputHidden.value = emailInput.value;
-    form.appendChild(inputHidden);
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const now = new Date();
+      const fecha = now.toLocaleDateString();
+      const hora = now.toLocaleTimeString();
+      const randomID = Math.random().toString(36).substring(2, 7).toUpperCase();
+      document.getElementById("subjectField").value = `Nuevo Cuestionario Fitness #${randomID} - ${fecha} ${hora}`;
+      document.getElementById("timestamp").value = `${fecha} ${hora}`;
+    });
     
-    form.submit();
-  } else {
-    alert('Por favor, ingresa un correo electrónico válido.');
-  }
-}
+    function validateForm(event) {
+      event.preventDefault();
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      const textareas = document.querySelectorAll('textarea');
+      let hasChecked = checkboxes.length > 0;
+      let hasText = false;
+      textareas.forEach(t => {
+        if (t.value.trim() !== '') hasText = true;
+      });
 
-function showSuccessMessage() {
-  const msg = document.createElement('div');
-  msg.textContent = '✅ ¡Formulario enviado con éxito!';
-  msg.style.color = '#c7f0d8';
-  msg.style.background = '#2a3b2f';
-  msg.style.borderRadius = '10px';
-  msg.style.padding = '15px';
-  msg.style.textAlign = 'center';
-  msg.style.marginTop = '20px';
-  msg.style.boxShadow = '0 2px 8px rgba(0,0,0,0.4)';
-  document.body.appendChild(msg);
-  setTimeout(() => msg.remove(), 5000);
-}
+      // Verificar que se hayan completado los campos requeridos
+      const requiredFields = document.querySelectorAll('input[required], textarea[required]');
+      let allRequiredFilled = true;
+      requiredFields.forEach(field => {
+        if (field.value.trim() === '') allRequiredFilled = false;
+      });
 
-document.getElementById("fitnessForm").addEventListener("submit", e => e.preventDefault());
-</script>
+      if (!hasChecked || !hasText || !allRequiredFilled) {
+        showWarning();
+        return false;
+      }
+
+      showPopup();
+      return false;
+    }
+    
+    function showWarning() {
+      document.getElementById('overlay').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('overlay').style.opacity = '1';
+      }, 10);
+      
+      document.getElementById('main-content').classList.add('blurred');
+      const warning = document.getElementById('warningPopup');
+      warning.style.display = 'block';
+      setTimeout(() => {
+        warning.style.opacity = '1';
+        warning.style.pointerEvents = 'auto';
+      }, 10);
+    }
+    
+    function showPopup() {
+      document.getElementById('overlay').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('overlay').style.opacity = '1';
+      }, 10);
+      
+      document.getElementById('main-content').classList.add('blurred');
+      const popup = document.getElementById('popup');
+      popup.style.display = 'block';
+      setTimeout(() => {
+        popup.style.opacity = '1';
+        popup.style.pointerEvents = 'auto';
+      }, 10);
+    }
+
+    function closePopup() {
+      document.getElementById('overlay').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('overlay').style.display = 'none';
+      }, 300);
+      
+      const popup = document.getElementById('popup');
+      popup.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      popup.style.opacity = '0';
+      popup.style.transform = 'translate(-50%, -55%) scale(0.85)';
+      popup.style.pointerEvents = 'none';
+      setTimeout(() => {
+        popup.style.display = 'none';
+        popup.style.transform = 'translate(-50%, -50%) scale(1)';
+      }, 500);
+      document.getElementById('main-content').classList.remove('blurred');
+    }
+
+    function closeWarning() {
+      document.getElementById('overlay').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('overlay').style.display = 'none';
+      }, 300);
+      
+      const warning = document.getElementById('warningPopup');
+      warning.style.opacity = '0';
+      warning.style.pointerEvents = 'none';
+      setTimeout(() => {
+        warning.style.display = 'none';
+      }, 500);
+      document.getElementById('main-content').classList.remove('blurred');
+    }
+
+    function submitPopupEmail() {
+      const emailInput = document.getElementById("popupEmail");
+      
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailPattern.test(emailInput.value)) {
+        const form = document.getElementById("fitnessForm");
+        const inputHidden = document.createElement('input');
+        inputHidden.type = 'hidden';
+        inputHidden.name = 'correo_usuario';
+        inputHidden.value = emailInput.value;
+        form.appendChild(inputHidden);
+        
+        // Mostrar mensaje de éxito
+        closePopup();
+        showSuccessMessage();
+        
+        // Enviar formulario después de un pequeño retraso
+        setTimeout(() => {
+          form.submit();
+        }, 1000);
+      } else {
+        alert('Por favor, ingresa un correo electrónico válido.');
+      }
+    }
+
+    function showSuccessMessage() {
+      const msg = document.createElement('div');
+      msg.textContent = '✅ ¡Formulario enviado con éxito!';
+      msg.style.color = '#c7f0d8';
+      msg.style.background = '#2a3b2f';
+      msg.style.borderRadius = '10px';
+      msg.style.padding = '15px';
+      msg.style.textAlign = 'center';
+      msg.style.marginTop = '20px';
+      msg.style.position = 'fixed';
+      msg.style.bottom = '20px';
+      msg.style.left = '50%';
+      msg.style.transform = 'translateX(-50%)';
+      msg.style.boxShadow = '0 2px 8px rgba(0,0,0,0.4)';
+      msg.style.zIndex = '2000';
+      msg.style.maxWidth = '90%';
+      msg.style.width = '400px';
+      document.body.appendChild(msg);
+      setTimeout(() => {
+        msg.style.opacity = '0';
+        msg.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => msg.remove(), 500);
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
