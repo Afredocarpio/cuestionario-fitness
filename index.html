@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuestionario Fitness Femenino</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #1e1e2f;
+      padding: 40px 20px;
+      margin: 0;
+      color: #f3e9f1;
+      transition: filter 0.3s ease;
+    }
+    .container {
+      max-width: 960px;
+      margin: auto;
+    }
+    h1 {
+      color: #f6adc6;
+      margin-top: 0;
+      text-align: center;
+      font-size: 28px;
+    }
+    h2 {
+      color: #f6adc6;
+      margin-top: 0;
+      font-size: 20px;
+    }
+    section {
+      background: #2c2c40;
+      padding: 28px;
+      margin-bottom: 40px;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  font-size: 16px;
+  color: #e8d8e8;
+  white-space: nowrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+    input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.1);
+      accent-color: #e08bb3;
+    }
+    textarea {
+  width: 100%;
+  height: 70px;
+  margin: 8px 0 0 0;
+  padding: 12px;
+  border: 1px solid #a86ca4;
+  border-radius: 8px;
+  background: #3b3b51;
+  resize: vertical;
+  font-size: 15px;
+  color: #f6dff0;
+}
+    button {
+  display: inline-block;
+  background-color: #d477aa;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+}
+    button:hover {
+  background-color: #bb5c92;
+  transform: scale(1.05);
+}
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      button {
+        width: 100%;
+      }
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #2c2c40;
+      color: #f6adc6;
+      border: 2px solid #bb5c92;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      z-index: 1000;
+      display: none;
+    }
+    .popup h3 {
+      margin: 0;
+      font-size: 22px;
+    }
+    .popup button {
+      margin-top: 20px;
+      background-color: #bb5c92;
+    }
+    .blurred {
+      filter: blur(4px);
+    }
+  </style>
+</head>
+<body>
+  <div id="main-content" class="container">
+    <h1>✨ Cuestionario de Bienestar y Fitness Femenino ✨</h1>
+    <form onsubmit="handleSubmit(event)">
+      <section>
+        <h2>🍑 1. Objetivos Estéticos <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
+        <label><input type="checkbox"> Aumentar glúteos 🍑</label>
+        <label><input type="checkbox"> Marcar el abdomen 🔥</label>
+        <label><input type="checkbox"> Reducir grasa abdominal 🧘‍♀️</label>
+        <label><input type="checkbox"> Mantener brazos estilizados 💃</label>
+        <label><input type="checkbox"> Sentirse tonificada sin parecer musculosa 💪</label>
+        <label><input type="checkbox"> Mejorar postura y firmeza corporal 🧍‍♀️</label>
+        <textarea placeholder="¿Qué zona específica deseas mejorar o mantener?"></textarea>
+      </section>
+
+      <section>
+        <h2>📊 2. Composición Corporal <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
+        <label><input type="checkbox"> Delgada</label>
+        <label><input type="checkbox"> Promedio</label>
+        <label><input type="checkbox"> Acumula grasa abdominal</label>
+        <label><input type="checkbox"> Retención de líquidos</label>
+        <label><input type="checkbox"> Gana grasa con facilidad</label>
+        <textarea placeholder="¿Has subido o bajado de peso antes? Cuéntanos."></textarea>
+      </section>
+
+      <section>
+        <h2>🥗 3. Alimentación Actual <span style='font-size:14px; color:#ccc;'>(elige una)</span></h2>
+        <label><input type="checkbox"> 2 o menos comidas al día</label>
+        <label><input type="checkbox"> 3 comidas al día</label>
+        <label><input type="checkbox"> 4-5 comidas al día</label>
+        <label><input type="checkbox"> Más de 5 comidas al día</label>
+        <textarea placeholder="¿Qué sueles comer en un día típico?"></textarea>
+      </section>
+
+      <section>
+        <h2>🏋️‍♀️ 4. Ejercicio Actual <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
+        <label><input type="checkbox"> No entreno</label>
+        <label><input type="checkbox"> 1-2 días a la semana</label>
+        <label><input type="checkbox"> 3-4 días a la semana</label>
+        <label><input type="checkbox"> 5 o más días</label>
+        <label><input type="checkbox"> Cardio 🏃‍♀️</label>
+        <label><input type="checkbox"> Pesas/gimnasio 🏋️‍♀️</label>
+        <label><input type="checkbox"> HIIT/Funcional ⏱️</label>
+        <label><input type="checkbox"> En casa sin equipo 🏠</label>
+        <textarea placeholder="¿Qué ejercicios disfrutas más o te han funcionado mejor?"></textarea>
+      </section>
+
+      <section>
+        <h2>💊 5. Suplementación <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
+        <label><input type="checkbox"> Energía y enfoque (NMN, maca, etc.) ⚡</label>
+        <label><input type="checkbox"> Digestión (probióticos, kéfir, enzimas) 🦠</label>
+        <label><input type="checkbox"> Estética y composición corporal (creatina, colágeno, proteína) ✨</label>
+        <label><input type="checkbox"> No me interesa tomar suplementos ❌</label>
+        <textarea placeholder="¿Hay algún suplemento específico que quieras probar o te hayan recomendado?"></textarea>
+      </section>
+      <section>
+        <h2>🎯 6. Motivación <span style='font-size:14px; color:#ccc;'>(elige una o más según cómo te sientas)</span></h2>
+        <label><input type="checkbox"> Quiero resultados rápidos con poco esfuerzo ⏳</label>
+        <label><input type="checkbox"> Estoy dispuesta a aprender y crear hábitos 📈</label>
+        <label><input type="checkbox"> Estoy 100% comprometida con mi cambio 💥</label>
+        <textarea placeholder="¿Qué te haría feliz al verte frente al espejo en 3 meses?"></textarea>
+      </section>
+      <button type="submit">🚀 Enviar Respuestas</button>
+    </form>
+  </div>
+
+  <div id="popup" class="popup">
+    <h3>💖 ¡Gracias por completar el cuestionario! 💖</h3>
+    <button onclick="closePopup()">Cerrar</button>
+  </div>
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      document.getElementById('popup').style.display = 'block';
+      document.getElementById('main-content').classList.add('blurred');
+    }
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('main-content').classList.remove('blurred');
+    }
+  </script>
+</body>
+</html>
