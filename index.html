@@ -255,6 +255,25 @@
       justify-content: space-between; 
       margin-top: 4px;
     }
+    
+    /* Media query para dispositivos móviles */
+    @media (max-width: 600px) {
+      .dias-entreno {
+        justify-content: center;
+      }
+      
+      .dias-entreno label {
+        width: 30%; /* Aproximadamente un tercio del ancho menos el gap */
+        box-sizing: border-box;
+        margin: 5px;
+        justify-content: flex-start;
+      }
+      
+      /* Estilo específico para el último día (Domingo) */
+      .dias-entreno label:last-child {
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
 <body>
