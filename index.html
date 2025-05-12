@@ -350,7 +350,7 @@
 
   <div id="warningPopup" class="popup">
     <div class="popup-icon">⚠️</div>
-    <h3>Por favor selecciona al menos una opción y responde la sección de información personal.</h3>
+    <h3>Por favor completa todos los campos requeridos y selecciona al menos una opción en cada sección.</h3>
     <button onclick="closeWarning()">Cerrar</button>
   </div>
 
@@ -373,10 +373,42 @@
       const requiredFields = document.querySelectorAll('input[required], textarea[required]');
       let allRequiredFilled = true;
       requiredFields.forEach(field => {
-        if (field.value.trim() === '') allRequiredFilled = false;
+        if (field.value.trim() === '') {
+          allRequiredFilled = false;
+          // Resaltar visualmente el campo que falta completar
+          field.style.borderColor = '#ff6b6b';
+          field.addEventListener('input', function() {
+            this.style.borderColor = '#a86ca4';
+          }, { once: true });
+        }
       });
 
-      if (!hasChecked || !allRequiredFilled) {
+      // Verificar si hay al menos un checkbox seleccionado en cada sección
+      const sections = document.querySelectorAll('section');
+      let allSectionsValid = true;
+      
+      sections.forEach(section => {
+        // Solo verificar secciones que tengan checkboxes (las primeras 6 secciones)
+        const sectionCheckboxes = section.querySelectorAll('input[type="checkbox"]');
+        if (sectionCheckboxes.length > 0) {
+          const checkedInSection = section.querySelectorAll('input[type="checkbox"]:checked').length;
+          if (checkedInSection === 0) {
+            allSectionsValid = false;
+            // Resaltar visualmente la sección que no tiene selecciones
+            section.style.boxShadow = '0 0 0 2px #ff6b6b';
+            // Restaurar el estilo cuando se seleccione un checkbox
+            section.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+              cb.addEventListener('change', function() {
+                if (this.checked) {
+                  section.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+                }
+              }, { once: true });
+            });
+          }
+        }
+      });
+
+      if (!allRequiredFilled || !allSectionsValid) {
         showWarning();
         return false;
       }
