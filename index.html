@@ -41,10 +41,20 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
     label {
-      display: block;
+      display: flex;
+      align-items: flex-start;
       margin: 10px 0 4px 0;
       font-size: 16px;
       color: #e8d8e8;
+      transition: all 0.3s ease;
+      padding: 6px;
+      border-radius: 6px;
+    }
+    label:hover {
+      background-color: #3b3b51;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(255, 192, 203, 0.3);
+      padding: 6px;
     }
     input[type="checkbox"] {
       appearance: none;
@@ -57,7 +67,8 @@
       position: relative;
       cursor: pointer;
       margin-right: 10px;
-      vertical-align: middle;
+      margin-top: 2px; /* Ajuste para alinear con el texto */
+      flex-shrink: 0; /* Evita que el checkbox se reduzca */
       transition: background-color 0.2s ease;
     }
     input[type="checkbox"]:checked::before {
@@ -185,18 +196,6 @@
       transition: opacity 0.3s ease;
     }
     
-    /* Mantener emoji con texto */
-    label {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    
-    label input[type="checkbox"] {
-      flex-shrink: 0;
-      margin-right: 10px;
-    }
-    
     /* Estilos para inputs numéricos */
     input[type="number"], input[type="email"] {
       width: 100%; 
@@ -209,7 +208,7 @@
       margin-bottom: 10px;
     }
     
-    /* Estilos para días de entrenamiento */
+    /* Estilos para días de entrenamiento y TODOS los checkboxes */
     .dias-entreno {
       display: flex; 
       flex-wrap: wrap; 
@@ -219,7 +218,9 @@
       margin-top: 4px;
     }
     
-    .dias-entreno label {
+    /* Ya no necesitamos estas reglas específicas para días-entreno porque
+       ahora todos los labels tienen efecto hover */
+    /*.dias-entreno label {
       transition: all 0.3s ease;
     }
     
@@ -228,6 +229,11 @@
       border-radius: 6px;
       box-shadow: 0 0 8px rgba(255, 192, 203, 0.3);
       padding: 6px;
+    }*/
+    
+    /* Correción para alineación de checkbox con texto */
+    label span {
+      padding-top: 2px;
     }
   </style>
 </head>
@@ -240,61 +246,61 @@
       <input type="hidden" name="_format" value="html">
       <section>
         <h2>🍑 1. Objetivos Estéticos <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
-        <label><input type="checkbox" name="respuestas[]" value="Aumentar glúteos 🍑"> Aumentar glúteos 🍑</label>
-        <label><input type="checkbox" name="respuestas[]" value="Marcar el abdomen 🔥"> Marcar el abdomen 🔥</label>
-        <label><input type="checkbox" name="respuestas[]" value="Reducir grasa abdominal 🧘‍♀️"> Reducir grasa abdominal 🧘‍♀️</label>
-        <label><input type="checkbox" name="respuestas[]" value="Mantener brazos estilizados 💃"> Mantener brazos estilizados 💃</label>
-        <label><input type="checkbox" name="respuestas[]" value="Sentirse tonificada sin parecer musculosa 💪"> Sentirse tonificada sin parecer musculosa 💪</label>
-        <label><input type="checkbox" name="respuestas[]" value="Mejorar postura y firmeza corporal 🧍‍♀️"> Mejorar postura y firmeza corporal 🧍‍♀️</label>
+        <label><input type="checkbox" name="respuestas[]" value="Aumentar glúteos 🍑"><span>Aumentar glúteos 🍑</span></label>
+        <label><input type="checkbox" name="respuestas[]" value="Marcar el abdomen 🔥"><span>Marcar el abdomen 🔥</span></label>
+        <label><input type="checkbox" name="respuestas[]" value="Reducir grasa abdominal 🧘‍♀️"><span>Reducir grasa abdominal 🧘‍♀️</span></label>
+        <label><input type="checkbox" name="respuestas[]" value="Mantener brazos estilizados 💃"><span>Mantener brazos estilizados 💃</span></label>
+        <label><input type="checkbox" name="respuestas[]" value="Sentirse tonificada sin parecer musculosa 💪"><span>Sentirse tonificada sin parecer musculosa 💪</span></label>
+        <label><input type="checkbox" name="respuestas[]" value="Mejorar postura y firmeza corporal 🧍‍♀️"><span>Mejorar postura y firmeza corporal 🧍‍♀️</span></label>
         <textarea name="zona_objetivo" placeholder="¿Qué zona específica deseas mejorar o mantener?"></textarea>
       </section>
 
       <section>
         <h2>📊 2. Composición Corporal <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
-        <label><input type="checkbox" name="composicion[]" value="Delgada"> Delgada</label>
-        <label><input type="checkbox" name="composicion[]" value="Promedio"> Promedio</label>
-        <label><input type="checkbox" name="composicion[]" value="Acumula grasa abdominal"> Acumula grasa abdominal</label>
-        <label><input type="checkbox" name="composicion[]" value="Retención de líquidos"> Retención de líquidos</label>
-        <label><input type="checkbox" name="composicion[]" value="Gana grasa con facilidad"> Gana grasa con facilidad</label>
+        <label><input type="checkbox" name="composicion[]" value="Delgada"><span>Delgada</span></label>
+        <label><input type="checkbox" name="composicion[]" value="Promedio"><span>Promedio</span></label>
+        <label><input type="checkbox" name="composicion[]" value="Acumula grasa abdominal"><span>Acumula grasa abdominal</span></label>
+        <label><input type="checkbox" name="composicion[]" value="Retención de líquidos"><span>Retención de líquidos</span></label>
+        <label><input type="checkbox" name="composicion[]" value="Gana grasa con facilidad"><span>Gana grasa con facilidad</span></label>
         <textarea name="historial_peso" placeholder="¿Has subido o bajado de peso antes? Cuéntanos."></textarea>
       </section>
 
       <section>
         <h2>🥗 3. Alimentación Actual <span style='font-size:14px; color:#ccc;'>(elige una)</span></h2>
-        <label><input type="checkbox" name="alimentacion[]" value="2 o menos comidas al día"> 2 o menos comidas al día</label>
-        <label><input type="checkbox" name="alimentacion[]" value="3 comidas al día"> 3 comidas al día</label>
-        <label><input type="checkbox" name="alimentacion[]" value="4-5 comidas al día"> 4-5 comidas al día</label>
-        <label><input type="checkbox" name="alimentacion[]" value="Más de 5 comidas al día"> Más de 5 comidas al día</label>
+        <label><input type="checkbox" name="alimentacion[]" value="2 o menos comidas al día"><span>2 o menos comidas al día</span></label>
+        <label><input type="checkbox" name="alimentacion[]" value="3 comidas al día"><span>3 comidas al día</span></label>
+        <label><input type="checkbox" name="alimentacion[]" value="4-5 comidas al día"><span>4-5 comidas al día</span></label>
+        <label><input type="checkbox" name="alimentacion[]" value="Más de 5 comidas al día"><span>Más de 5 comidas al día</span></label>
         <textarea name="dieta_actual" placeholder="¿Qué sueles comer en un día típico?"></textarea>
       </section>
 
       <section>
         <h2>🏋️‍♀️ 4. Ejercicio Actual <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
-        <label><input type="checkbox" name="ejercicio[]" value="No entreno"> No entreno</label>
-        <label><input type="checkbox" name="ejercicio[]" value="1-2 días a la semana"> 1-2 días a la semana</label>
-        <label><input type="checkbox" name="ejercicio[]" value="3-4 días a la semana"> 3-4 días a la semana</label>
-        <label><input type="checkbox" name="ejercicio[]" value="5 o más días"> 5 o más días</label>
-        <label><input type="checkbox" name="ejercicio[]" value="Cardio 🏃‍♀️"> Cardio 🏃‍♀️</label>
-        <label><input type="checkbox" name="ejercicio[]" value="Pesas/gimnasio 🏋️‍♀️"> Pesas/gimnasio 🏋️‍♀️</label>
-        <label><input type="checkbox" name="ejercicio[]" value="HIIT/Funcional ⏱️"> HIIT/Funcional ⏱️</label>
-        <label><input type="checkbox" name="ejercicio[]" value="En casa sin equipo 🏠"> En casa sin equipo 🏠</label>
+        <label><input type="checkbox" name="ejercicio[]" value="No entreno"><span>No entreno</span></label>
+        <label><input type="checkbox" name="ejercicio[]" value="1-2 días a la semana"><span>1-2 días a la semana</span></label>
+        <label><input type="checkbox" name="ejercicio[]" value="3-4 días a la semana"><span>3-4 días a la semana</span></label>
+        <label><input type="checkbox" name="ejercicio[]" value="5 o más días"><span>5 o más días</span></label>
+        <label><input type="checkbox" name="ejercicio[]" value="Cardio 🏃‍♀️"><span>Cardio 🏃‍♀️</span></label>
+        <label><input type="checkbox" name="ejercicio[]" value="Pesas/gimnasio 🏋️‍♀️"><span>Pesas/gimnasio 🏋️‍♀️</span></label>
+        <label><input type="checkbox" name="ejercicio[]" value="HIIT/Funcional ⏱️"><span>HIIT/Funcional ⏱️</span></label>
+        <label><input type="checkbox" name="ejercicio[]" value="En casa sin equipo 🏠"><span>En casa sin equipo 🏠</span></label>
         <textarea name="ejercicio_favorito" placeholder="¿Qué ejercicios disfrutas más o te han funcionado mejor?"></textarea>
       </section>
 
       <section>
         <h2>💊 5. Suplementación <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
-        <label><input type="checkbox" name="suplementacion[]" value="Energía y enfoque (NMN, maca, etc.) ⚡"> Energía y enfoque (NMN, maca, etc.) ⚡</label>
-        <label><input type="checkbox" name="suplementacion[]" value="Digestión (probióticos, kéfir, enzimas) 🦠"> Digestión (probióticos, kéfir, enzimas) 🦠</label>
-        <label><input type="checkbox" name="suplementacion[]" value="Estética y composición corporal (creatina, colágeno, proteína) ✨"> Estética y composición corporal (creatina, colágeno, proteína) ✨</label>
-        <label><input type="checkbox" name="suplementacion[]" value="No me interesa tomar suplementos ❌"> No me interesa tomar suplementos ❌</label>
+        <label><input type="checkbox" name="suplementacion[]" value="Energía y enfoque (NMN, maca, etc.) ⚡"><span>Energía y enfoque (NMN, maca, etc.) ⚡</span></label>
+        <label><input type="checkbox" name="suplementacion[]" value="Digestión (probióticos, kéfir, enzimas) 🦠"><span>Digestión (probióticos, kéfir, enzimas) 🦠</span></label>
+        <label><input type="checkbox" name="suplementacion[]" value="Estética y composición corporal (creatina, colágeno, proteína) ✨"><span>Estética y composición corporal (creatina, colágeno, proteína) ✨</span></label>
+        <label><input type="checkbox" name="suplementacion[]" value="No me interesa tomar suplementos ❌"><span>No me interesa tomar suplementos ❌</span></label>
         <textarea name="suplementos_interes" placeholder="¿Hay algún suplemento específico que quieras probar o te hayan recomendado?"></textarea>
       </section>
       
       <section>
         <h2>🎯 6. Motivación <span style='font-size:14px; color:#ccc;'>(elige una o más según cómo te sientas)</span></h2>
-        <label><input type="checkbox" name="motivacion_check[]" value="Quiero resultados rápidos con poco esfuerzo ⏳"> Quiero resultados rápidos con poco esfuerzo ⏳</label>
-        <label><input type="checkbox" name="motivacion_check[]" value="Estoy dispuesta a aprender y crear hábitos 📈"> Estoy dispuesta a aprender y crear hábitos 📈</label>
-        <label><input type="checkbox" name="motivacion_check[]" value="Estoy 100% comprometida con mi cambio 💥"> Estoy 100% comprometida con mi cambio 💥</label>
+        <label><input type="checkbox" name="motivacion_check[]" value="Quiero resultados rápidos con poco esfuerzo ⏳"><span>Quiero resultados rápidos con poco esfuerzo ⏳</span></label>
+        <label><input type="checkbox" name="motivacion_check[]" value="Estoy dispuesta a aprender y crear hábitos 📈"><span>Estoy dispuesta a aprender y crear hábitos 📈</span></label>
+        <label><input type="checkbox" name="motivacion_check[]" value="Estoy 100% comprometida con mi cambio 💥"><span>Estoy 100% comprometida con mi cambio 💥</span></label>
         <textarea name="motivacion" placeholder="¿Qué te haría feliz al verte frente al espejo en 3 meses?"></textarea>
       </section>
 
@@ -320,13 +326,13 @@
 
         <h3 style='margin-top:20px; margin-bottom: 10px;'>¿Qué días puedes entrenar?</h3>
         <div class="dias-entreno">
-          <label><input type="checkbox" name="dias_entreno[]" value="Lunes"> Lunes</label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Martes"> Martes</label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Miércoles"> Miércoles</label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Jueves"> Jueves</label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Viernes"> Viernes</label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Sábado"> Sábado</label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Domingo"> Domingo</label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Lunes"><span>Lunes</span></label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Martes"><span>Martes</span></label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Miércoles"><span>Miércoles</span></label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Jueves"><span>Jueves</span></label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Viernes"><span>Viernes</span></label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Sábado"><span>Sábado</span></label>
+          <label><input type="checkbox" name="dias_entreno[]" value="Domingo"><span>Domingo</span></label>
         </div>
       </section>
       
