@@ -46,15 +46,19 @@
       margin: 10px 0 4px 0;
       font-size: 16px;
       color: #e8d8e8;
+    }
+    .checkbox-label {
       transition: all 0.3s ease;
       padding: 6px;
       border-radius: 6px;
+      cursor: pointer;
     }
-    label:hover {
+    .checkbox-label:hover {
       background-color: #3b3b51;
       border-radius: 6px;
       box-shadow: 0 0 8px rgba(255, 192, 203, 0.3);
       padding: 6px;
+      transform: translateX(3px);
     }
     input[type="checkbox"] {
       appearance: none;
@@ -67,9 +71,23 @@
       position: relative;
       cursor: pointer;
       margin-right: 10px;
-      margin-top: 2px; /* Ajuste para alinear con el texto */
-      flex-shrink: 0; /* Evita que el checkbox se reduzca */
-      transition: background-color 0.2s ease;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .checkbox-animated {
+      transition: all 0.3s ease;
+    }
+    .checkbox-animated:hover {
+      border-color: #f6adc6;
+      transform: scale(1.1);
+      box-shadow: 0 0 5px rgba(224, 139, 179, 0.5);
+    }
+    input[type="checkbox"]:checked {
+      background-color: #e08bb3;
+      border-color: #e08bb3;
+    }
+    .checkbox-animated:checked {
+      transform: scale(1.1);
     }
     input[type="checkbox"]:checked::before {
       content: '✔';
@@ -80,9 +98,29 @@
       font-size: 14px;
       color: #fff;
     }
-    input[type="checkbox"]:checked {
-      background-color: #e08bb3;
-      border-color: #e08bb3;
+    .checkbox-animated:checked::before {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .checkbox-animated:checked::before {
+      opacity: 1;
+    }
+    .checkbox-label span {
+      padding-top: 2px;
+      transition: all 0.3s ease;
+    }
+    .checkbox-animated:checked + span {
+      color: #f6adc6;
+      font-weight: 600;
+      transform: translateX(2px);
+    }
+    @keyframes checkPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    .checkbox-animated:active {
+      animation: checkPulse 0.3s ease;
     }
     textarea {
       width: 100%;
@@ -217,24 +255,6 @@
       justify-content: space-between; 
       margin-top: 4px;
     }
-    
-    /* Ya no necesitamos estas reglas específicas para días-entreno porque
-       ahora todos los labels tienen efecto hover */
-    /*.dias-entreno label {
-      transition: all 0.3s ease;
-    }
-    
-    .dias-entreno label:hover {
-      background-color: #3b3b51;
-      border-radius: 6px;
-      box-shadow: 0 0 8px rgba(255, 192, 203, 0.3);
-      padding: 6px;
-    }*/
-    
-    /* Correción para alineación de checkbox con texto */
-    label span {
-      padding-top: 2px;
-    }
   </style>
 </head>
 <body>
@@ -246,56 +266,56 @@
       <input type="hidden" name="_format" value="html">
       <section>
         <h2>🍑 1. Objetivos Estéticos <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
-        <label><input type="checkbox" name="respuestas[]" value="Aumentar glúteos 🍑"><span>Aumentar glúteos 🍑</span></label>
-        <label><input type="checkbox" name="respuestas[]" value="Marcar el abdomen 🔥"><span>Marcar el abdomen 🔥</span></label>
-        <label><input type="checkbox" name="respuestas[]" value="Reducir grasa abdominal 🧘‍♀️"><span>Reducir grasa abdominal 🧘‍♀️</span></label>
-        <label><input type="checkbox" name="respuestas[]" value="Mantener brazos estilizados 💃"><span>Mantener brazos estilizados 💃</span></label>
-        <label><input type="checkbox" name="respuestas[]" value="Sentirse tonificada sin parecer musculosa 💪"><span>Sentirse tonificada sin parecer musculosa 💪</span></label>
-        <label><input type="checkbox" name="respuestas[]" value="Mejorar postura y firmeza corporal 🧍‍♀️"><span>Mejorar postura y firmeza corporal 🧍‍♀️</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="respuestas[]" value="Aumentar glúteos 🍑"><span>Aumentar glúteos 🍑</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="respuestas[]" value="Marcar el abdomen 🔥"><span>Marcar el abdomen 🔥</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="respuestas[]" value="Reducir grasa abdominal 🧘‍♀️"><span>Reducir grasa abdominal 🧘‍♀️</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="respuestas[]" value="Mantener brazos estilizados 💃"><span>Mantener brazos estilizados 💃</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="respuestas[]" value="Sentirse tonificada sin parecer musculosa 💪"><span>Sentirse tonificada sin parecer musculosa 💪</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="respuestas[]" value="Mejorar postura y firmeza corporal 🧍‍♀️"><span>Mejorar postura y firmeza corporal 🧍‍♀️</span></label>
       </section>
 
       <section>
         <h2>📊 2. Composición Corporal <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
-        <label><input type="checkbox" name="composicion[]" value="Delgada"><span>Delgada</span></label>
-        <label><input type="checkbox" name="composicion[]" value="Promedio"><span>Promedio</span></label>
-        <label><input type="checkbox" name="composicion[]" value="Acumula grasa abdominal"><span>Acumula grasa abdominal</span></label>
-        <label><input type="checkbox" name="composicion[]" value="Retención de líquidos"><span>Retención de líquidos</span></label>
-        <label><input type="checkbox" name="composicion[]" value="Gana grasa con facilidad"><span>Gana grasa con facilidad</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="composicion[]" value="Delgada"><span>Delgada</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="composicion[]" value="Promedio"><span>Promedio</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="composicion[]" value="Acumula grasa abdominal"><span>Acumula grasa abdominal</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="composicion[]" value="Retención de líquidos"><span>Retención de líquidos</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="composicion[]" value="Gana grasa con facilidad"><span>Gana grasa con facilidad</span></label>
       </section>
 
       <section>
         <h2>🥗 3. Alimentación Actual <span style='font-size:14px; color:#ccc;'>(elige una)</span></h2>
-        <label><input type="checkbox" name="alimentacion[]" value="2 o menos comidas al día"><span>2 o menos comidas al día</span></label>
-        <label><input type="checkbox" name="alimentacion[]" value="3 comidas al día"><span>3 comidas al día</span></label>
-        <label><input type="checkbox" name="alimentacion[]" value="4-5 comidas al día"><span>4-5 comidas al día</span></label>
-        <label><input type="checkbox" name="alimentacion[]" value="Más de 5 comidas al día"><span>Más de 5 comidas al día</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="alimentacion[]" value="2 o menos comidas al día"><span>2 o menos comidas al día</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="alimentacion[]" value="3 comidas al día"><span>3 comidas al día</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="alimentacion[]" value="4-5 comidas al día"><span>4-5 comidas al día</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="alimentacion[]" value="Más de 5 comidas al día"><span>Más de 5 comidas al día</span></label>
       </section>
 
       <section>
         <h2>🏋️‍♀️ 4. Ejercicio Actual <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
-        <label><input type="checkbox" name="ejercicio[]" value="No entreno"><span>No entreno</span></label>
-        <label><input type="checkbox" name="ejercicio[]" value="1-2 días a la semana"><span>1-2 días a la semana</span></label>
-        <label><input type="checkbox" name="ejercicio[]" value="3-4 días a la semana"><span>3-4 días a la semana</span></label>
-        <label><input type="checkbox" name="ejercicio[]" value="5 o más días"><span>5 o más días</span></label>
-        <label><input type="checkbox" name="ejercicio[]" value="Cardio 🏃‍♀️"><span>Cardio 🏃‍♀️</span></label>
-        <label><input type="checkbox" name="ejercicio[]" value="Pesas/gimnasio 🏋️‍♀️"><span>Pesas/gimnasio 🏋️‍♀️</span></label>
-        <label><input type="checkbox" name="ejercicio[]" value="HIIT/Funcional ⏱️"><span>HIIT/Funcional ⏱️</span></label>
-        <label><input type="checkbox" name="ejercicio[]" value="En casa sin equipo 🏠"><span>En casa sin equipo 🏠</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="ejercicio[]" value="No entreno"><span>No entreno</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="ejercicio[]" value="1-2 días a la semana"><span>1-2 días a la semana</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="ejercicio[]" value="3-4 días a la semana"><span>3-4 días a la semana</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="ejercicio[]" value="5 o más días"><span>5 o más días</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="ejercicio[]" value="Cardio 🏃‍♀️"><span>Cardio 🏃‍♀️</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="ejercicio[]" value="Pesas/gimnasio 🏋️‍♀️"><span>Pesas/gimnasio 🏋️‍♀️</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="ejercicio[]" value="HIIT/Funcional ⏱️"><span>HIIT/Funcional ⏱️</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="ejercicio[]" value="En casa sin equipo 🏠"><span>En casa sin equipo 🏠</span></label>
       </section>
 
       <section>
         <h2>💊 5. Suplementación <span style='font-size:14px; color:#ccc;'>(elige una o más)</span></h2>
-        <label><input type="checkbox" name="suplementacion[]" value="Energía y enfoque (NMN, maca, etc.) ⚡"><span>Energía y enfoque (NMN, maca, etc.) ⚡</span></label>
-        <label><input type="checkbox" name="suplementacion[]" value="Digestión (probióticos, kéfir, enzimas) 🦠"><span>Digestión (probióticos, kéfir, enzimas) 🦠</span></label>
-        <label><input type="checkbox" name="suplementacion[]" value="Estética y composición corporal (creatina, colágeno, proteína) ✨"><span>Estética y composición corporal (creatina, colágeno, proteína) ✨</span></label>
-        <label><input type="checkbox" name="suplementacion[]" value="No me interesa tomar suplementos ❌"><span>No me interesa tomar suplementos ❌</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="suplementacion[]" value="Energía y enfoque (NMN, maca, etc.) ⚡"><span>Energía y enfoque (NMN, maca, etc.) ⚡</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="suplementacion[]" value="Digestión (probióticos, kéfir, enzimas) 🦠"><span>Digestión (probióticos, kéfir, enzimas) 🦠</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="suplementacion[]" value="Estética y composición corporal (creatina, colágeno, proteína) ✨"><span>Estética y composición corporal (creatina, colágeno, proteína) ✨</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="suplementacion[]" value="No me interesa tomar suplementos ❌"><span>No me interesa tomar suplementos ❌</span></label>
       </section>
       
       <section>
         <h2>🎯 6. Motivación <span style='font-size:14px; color:#ccc;'>(elige una o más según cómo te sientas)</span></h2>
-        <label><input type="checkbox" name="motivacion_check[]" value="Quiero resultados rápidos con poco esfuerzo ⏳"><span>Quiero resultados rápidos con poco esfuerzo ⏳</span></label>
-        <label><input type="checkbox" name="motivacion_check[]" value="Estoy dispuesta a aprender y crear hábitos 📈"><span>Estoy dispuesta a aprender y crear hábitos 📈</span></label>
-        <label><input type="checkbox" name="motivacion_check[]" value="Estoy 100% comprometida con mi cambio 💥"><span>Estoy 100% comprometida con mi cambio 💥</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="motivacion_check[]" value="Quiero resultados rápidos con poco esfuerzo ⏳"><span>Quiero resultados rápidos con poco esfuerzo ⏳</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="motivacion_check[]" value="Estoy dispuesta a aprender y crear hábitos 📈"><span>Estoy dispuesta a aprender y crear hábitos 📈</span></label>
+        <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="motivacion_check[]" value="Estoy 100% comprometida con mi cambio 💥"><span>Estoy 100% comprometida con mi cambio 💥</span></label>
       </section>
 
       <section>
@@ -320,13 +340,13 @@
 
         <h3 style='margin-top:20px; margin-bottom: 10px;'>¿Qué días puedes entrenar?</h3>
         <div class="dias-entreno">
-          <label><input type="checkbox" name="dias_entreno[]" value="Lunes"><span>Lunes</span></label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Martes"><span>Martes</span></label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Miércoles"><span>Miércoles</span></label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Jueves"><span>Jueves</span></label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Viernes"><span>Viernes</span></label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Sábado"><span>Sábado</span></label>
-          <label><input type="checkbox" name="dias_entreno[]" value="Domingo"><span>Domingo</span></label>
+          <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="dias_entreno[]" value="Lunes"><span>Lunes</span></label>
+          <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="dias_entreno[]" value="Martes"><span>Martes</span></label>
+          <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="dias_entreno[]" value="Miércoles"><span>Miércoles</span></label>
+          <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="dias_entreno[]" value="Jueves"><span>Jueves</span></label>
+          <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="dias_entreno[]" value="Viernes"><span>Viernes</span></label>
+          <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="dias_entreno[]" value="Sábado"><span>Sábado</span></label>
+          <label class="checkbox-label"><input type="checkbox" class="checkbox-animated" name="dias_entreno[]" value="Domingo"><span>Domingo</span></label>
         </div>
       </section>
       
@@ -342,7 +362,6 @@
     <div class="popup-icon">💖</div>
     <h3>¡Gracias por completar el cuestionario!</h3>
     <p style="font-size:14px; color:#ccc; margin-top: 16px;">Deja tu correo electrónico para enviarte tus resultados personalizados. Esta rutina puede adaptarse mejor si conocemos más de ti.</p>
-    <p style="font-size:13px; color:#aaa; margin-top: 6px;">Por favor incluye tu edad, estatura, peso actual y cualquier dato que consideres importante.</p>
     <input type="email" id="popupEmail" name="correo_usuario" placeholder="Ej: mariafit@gmail.com" required>
     <button type="button" onclick="submitPopupEmail()" style="margin-top: 16px;" id="popupSendButton">Enviar</button>
     <span onclick="closePopup()" style="position:absolute;top:10px;right:15px;font-size:20px;cursor:pointer;">❌</span>
@@ -351,7 +370,15 @@
   <div id="warningPopup" class="popup">
     <div class="popup-icon">⚠️</div>
     <h3>Por favor completa todos los campos requeridos y selecciona al menos una opción en cada sección.</h3>
+    <div id="warningDetails" style="text-align: left; margin-top: 15px; font-size: 14px; color: #f6dff0;"></div>
     <button onclick="closeWarning()">Cerrar</button>
+  </div>
+
+  <div id="successPopup" class="popup">
+    <div class="popup-icon">✅</div>
+    <h3>¡Formulario enviado con éxito!</h3>
+    <p style="font-size:14px; color:#ccc; margin-top: 16px;">Gracias por completar el cuestionario. Recibirás tus resultados personalizados pronto.</p>
+    <button onclick="closeSuccessPopup()" style="margin-top: 16px;">Cerrar</button>
   </div>
 
   <script>
@@ -372,6 +399,8 @@
       // Verificar que se hayan completado los campos requeridos
       const requiredFields = document.querySelectorAll('input[required], textarea[required]');
       let allRequiredFilled = true;
+      let missingFields = [];
+      
       requiredFields.forEach(field => {
         // Ignorar el campo popupEmail que está en el popup
         if (field.id === 'popupEmail') return;
@@ -383,15 +412,20 @@
           field.addEventListener('input', function() {
             this.style.borderColor = '#a86ca4';
           }, { once: true });
+          
+          // Agregar a la lista de campos faltantes
+          const fieldLabel = document.querySelector(`label[for="${field.id}"]`)?.textContent || field.id || field.name;
+          missingFields.push(fieldLabel.replace(':', ''));
         }
       });
 
       // Verificar si hay al menos un checkbox seleccionado en cada sección
       const sections = document.querySelectorAll('section');
       let allSectionsValid = true;
+      let missingSections = [];
       
       sections.forEach(section => {
-        // Solo verificar secciones que tengan checkboxes (las primeras 6 secciones)
+        // Solo verificar secciones que tengan checkboxes
         const sectionCheckboxes = section.querySelectorAll('input[type="checkbox"]');
         if (sectionCheckboxes.length > 0) {
           const checkedInSection = section.querySelectorAll('input[type="checkbox"]:checked').length;
@@ -407,91 +441,35 @@
                 }
               }, { once: true });
             });
+            
+            // Agregar a la lista de secciones faltantes
+            const sectionTitle = section.querySelector('h2')?.textContent || `Sección ${missingSections.length + 1}`;
+            missingSections.push(sectionTitle);
           }
         }
       });
 
       if (!allRequiredFilled || !allSectionsValid) {
-        // Código de depuración para identificar el problema
-        console.log("Validación fallida:");
+        // Construir el mensaje de advertencia detallado
+        let warningMessage = '';
         
-        if (!allRequiredFilled) {
-          console.log("Campos requeridos no completados:");
-          requiredFields.forEach(field => {
-            // Ignorar el campo popupEmail que está en el popup
-            if (field.id === 'popupEmail') return;
-            
-            if (field.value.trim() === '') {
-              console.log(`- Campo '${field.id || field.name}' está vacío`);
-            }
+        if (missingSections.length > 0) {
+          warningMessage += '<strong>Secciones sin selecciones:</strong><br>';
+          missingSections.forEach(section => {
+            warningMessage += `• ${section}<br>`;
           });
         }
         
-        if (!allSectionsValid) {
-          console.log("Secciones sin selecciones:");
-          sections.forEach((section, index) => {
-            const sectionCheckboxes = section.querySelectorAll('input[type="checkbox"]');
-            if (sectionCheckboxes.length > 0) {
-              const checkedInSection = section.querySelectorAll('input[type="checkbox"]:checked').length;
-              if (checkedInSection === 0) {
-                const sectionTitle = section.querySelector('h2')?.textContent || `Sección ${index + 1}`;
-                console.log(`- ${sectionTitle} no tiene selecciones`);
-              }
-            }
+        if (missingFields.length > 0) {
+          if (warningMessage) warningMessage += '<br>';
+          warningMessage += '<strong>Campos requeridos sin completar:</strong><br>';
+          missingFields.forEach(field => {
+            warningMessage += `• ${field}<br>`;
           });
         }
         
-        // Modificación para mostrar visualmente qué está fallando
-        const debugInfo = document.createElement('div');
-        debugInfo.style.position = 'fixed';
-        debugInfo.style.top = '10px';
-        debugInfo.style.right = '10px';
-        debugInfo.style.backgroundColor = '#ff6b6b';
-        debugInfo.style.color = 'white';
-        debugInfo.style.padding = '10px';
-        debugInfo.style.borderRadius = '5px';
-        debugInfo.style.zIndex = '9999';
-        debugInfo.style.maxWidth = '300px';
-        debugInfo.style.maxHeight = '200px';
-        debugInfo.style.overflow = 'auto';
-        
-        let debugText = '<strong>Problemas encontrados:</strong><br>';
-        
-        if (!allRequiredFilled) {
-          debugText += '<br><strong>Campos requeridos vacíos:</strong><br>';
-          requiredFields.forEach(field => {
-            // Ignorar el campo popupEmail que está en el popup
-            if (field.id === 'popupEmail') return;
-            
-            if (field.value.trim() === '') {
-              debugText += `- ${field.id || field.name}<br>`;
-            }
-          });
-        }
-        
-        if (!allSectionsValid) {
-          debugText += '<br><strong>Secciones sin selecciones:</strong><br>';
-          sections.forEach((section, index) => {
-            const sectionCheckboxes = section.querySelectorAll('input[type="checkbox"]');
-            if (sectionCheckboxes.length > 0) {
-              const checkedInSection = section.querySelectorAll('input[type="checkbox"]:checked').length;
-              if (checkedInSection === 0) {
-                const sectionTitle = section.querySelector('h2')?.textContent || `Sección ${index + 1}`;
-                debugText += `- ${sectionTitle}<br>`;
-              }
-            }
-          });
-        }
-        
-        debugInfo.innerHTML = debugText;
-        document.body.appendChild(debugInfo);
-        
-        // Eliminar el mensaje de depuración después de 10 segundos
-        setTimeout(() => {
-          if (document.body.contains(debugInfo)) {
-            document.body.removeChild(debugInfo);
-          }
-        }, 10000);
+        // Actualizar el contenido del popup de advertencia
+        document.getElementById('warningDetails').innerHTML = warningMessage;
         
         showWarning();
         return false;
@@ -576,9 +554,11 @@
         inputHidden.value = emailInput.value;
         form.appendChild(inputHidden);
         
-        // Mostrar mensaje de éxito
+        // Cerrar el popup de email
         closePopup();
-        showSuccessMessage();
+        
+        // Mostrar el popup de éxito
+        showSuccessPopup();
         
         // Enviar formulario después de un pequeño retraso
         setTimeout(() => {
@@ -589,29 +569,38 @@
       }
     }
 
-    function showSuccessMessage() {
-      const msg = document.createElement('div');
-      msg.textContent = '✅ ¡Formulario enviado con éxito!';
-      msg.style.color = '#c7f0d8';
-      msg.style.background = '#2a3b2f';
-      msg.style.borderRadius = '10px';
-      msg.style.padding = '15px';
-      msg.style.textAlign = 'center';
-      msg.style.marginTop = '20px';
-      msg.style.position = 'fixed';
-      msg.style.bottom = '20px';
-      msg.style.left = '50%';
-      msg.style.transform = 'translateX(-50%)';
-      msg.style.boxShadow = '0 2px 8px rgba(0,0,0,0.4)';
-      msg.style.zIndex = '2000';
-      msg.style.maxWidth = '90%';
-      msg.style.width = '400px';
-      document.body.appendChild(msg);
+    function showSuccessPopup() {
+      document.getElementById('overlay').style.display = 'block';
       setTimeout(() => {
-        msg.style.opacity = '0';
-        msg.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => msg.remove(), 500);
-      }, 3000);
+        document.getElementById('overlay').style.opacity = '1';
+      }, 10);
+      
+      document.getElementById('main-content').classList.add('blurred');
+      const popup = document.getElementById('successPopup');
+      popup.style.display = 'block';
+      setTimeout(() => {
+        popup.style.opacity = '1';
+        popup.style.pointerEvents = 'auto';
+      }, 10);
+    }
+
+    function closeSuccessPopup() {
+      document.getElementById('overlay').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('overlay').style.display = 'none';
+      }, 300);
+      
+      const popup = document.getElementById('successPopup');
+      popup.style.opacity = '0';
+      popup.style.pointerEvents = 'none';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 500);
+      document.getElementById('main-content').classList.remove('blurred');
+    }
+
+    function showSuccessMessage() {
+      // Esta función ya no se usa, la reemplazamos con showSuccessPopup
     }
   </script>
 </body>
