@@ -373,6 +373,9 @@
       const requiredFields = document.querySelectorAll('input[required], textarea[required]');
       let allRequiredFilled = true;
       requiredFields.forEach(field => {
+        // Ignorar el campo popupEmail que está en el popup
+        if (field.id === 'popupEmail') return;
+        
         if (field.value.trim() === '') {
           allRequiredFilled = false;
           // Resaltar visualmente el campo que falta completar
@@ -409,6 +412,87 @@
       });
 
       if (!allRequiredFilled || !allSectionsValid) {
+        // Código de depuración para identificar el problema
+        console.log("Validación fallida:");
+        
+        if (!allRequiredFilled) {
+          console.log("Campos requeridos no completados:");
+          requiredFields.forEach(field => {
+            // Ignorar el campo popupEmail que está en el popup
+            if (field.id === 'popupEmail') return;
+            
+            if (field.value.trim() === '') {
+              console.log(`- Campo '${field.id || field.name}' está vacío`);
+            }
+          });
+        }
+        
+        if (!allSectionsValid) {
+          console.log("Secciones sin selecciones:");
+          sections.forEach((section, index) => {
+            const sectionCheckboxes = section.querySelectorAll('input[type="checkbox"]');
+            if (sectionCheckboxes.length > 0) {
+              const checkedInSection = section.querySelectorAll('input[type="checkbox"]:checked').length;
+              if (checkedInSection === 0) {
+                const sectionTitle = section.querySelector('h2')?.textContent || `Sección ${index + 1}`;
+                console.log(`- ${sectionTitle} no tiene selecciones`);
+              }
+            }
+          });
+        }
+        
+        // Modificación para mostrar visualmente qué está fallando
+        const debugInfo = document.createElement('div');
+        debugInfo.style.position = 'fixed';
+        debugInfo.style.top = '10px';
+        debugInfo.style.right = '10px';
+        debugInfo.style.backgroundColor = '#ff6b6b';
+        debugInfo.style.color = 'white';
+        debugInfo.style.padding = '10px';
+        debugInfo.style.borderRadius = '5px';
+        debugInfo.style.zIndex = '9999';
+        debugInfo.style.maxWidth = '300px';
+        debugInfo.style.maxHeight = '200px';
+        debugInfo.style.overflow = 'auto';
+        
+        let debugText = '<strong>Problemas encontrados:</strong><br>';
+        
+        if (!allRequiredFilled) {
+          debugText += '<br><strong>Campos requeridos vacíos:</strong><br>';
+          requiredFields.forEach(field => {
+            // Ignorar el campo popupEmail que está en el popup
+            if (field.id === 'popupEmail') return;
+            
+            if (field.value.trim() === '') {
+              debugText += `- ${field.id || field.name}<br>`;
+            }
+          });
+        }
+        
+        if (!allSectionsValid) {
+          debugText += '<br><strong>Secciones sin selecciones:</strong><br>';
+          sections.forEach((section, index) => {
+            const sectionCheckboxes = section.querySelectorAll('input[type="checkbox"]');
+            if (sectionCheckboxes.length > 0) {
+              const checkedInSection = section.querySelectorAll('input[type="checkbox"]:checked').length;
+              if (checkedInSection === 0) {
+                const sectionTitle = section.querySelector('h2')?.textContent || `Sección ${index + 1}`;
+                debugText += `- ${sectionTitle}<br>`;
+              }
+            }
+          });
+        }
+        
+        debugInfo.innerHTML = debugText;
+        document.body.appendChild(debugInfo);
+        
+        // Eliminar el mensaje de depuración después de 10 segundos
+        setTimeout(() => {
+          if (document.body.contains(debugInfo)) {
+            document.body.removeChild(debugInfo);
+          }
+        }, 10000);
+        
         showWarning();
         return false;
       }
