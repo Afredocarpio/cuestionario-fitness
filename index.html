@@ -252,7 +252,6 @@
         <label><input type="checkbox" name="respuestas[]" value="Mantener brazos estilizados 💃"><span>Mantener brazos estilizados 💃</span></label>
         <label><input type="checkbox" name="respuestas[]" value="Sentirse tonificada sin parecer musculosa 💪"><span>Sentirse tonificada sin parecer musculosa 💪</span></label>
         <label><input type="checkbox" name="respuestas[]" value="Mejorar postura y firmeza corporal 🧍‍♀️"><span>Mejorar postura y firmeza corporal 🧍‍♀️</span></label>
-        <textarea name="zona_objetivo" placeholder="¿Qué zona específica deseas mejorar o mantener?"></textarea>
       </section>
 
       <section>
@@ -262,7 +261,6 @@
         <label><input type="checkbox" name="composicion[]" value="Acumula grasa abdominal"><span>Acumula grasa abdominal</span></label>
         <label><input type="checkbox" name="composicion[]" value="Retención de líquidos"><span>Retención de líquidos</span></label>
         <label><input type="checkbox" name="composicion[]" value="Gana grasa con facilidad"><span>Gana grasa con facilidad</span></label>
-        <textarea name="historial_peso" placeholder="¿Has subido o bajado de peso antes? Cuéntanos."></textarea>
       </section>
 
       <section>
@@ -271,7 +269,6 @@
         <label><input type="checkbox" name="alimentacion[]" value="3 comidas al día"><span>3 comidas al día</span></label>
         <label><input type="checkbox" name="alimentacion[]" value="4-5 comidas al día"><span>4-5 comidas al día</span></label>
         <label><input type="checkbox" name="alimentacion[]" value="Más de 5 comidas al día"><span>Más de 5 comidas al día</span></label>
-        <textarea name="dieta_actual" placeholder="¿Qué sueles comer en un día típico?"></textarea>
       </section>
 
       <section>
@@ -284,7 +281,6 @@
         <label><input type="checkbox" name="ejercicio[]" value="Pesas/gimnasio 🏋️‍♀️"><span>Pesas/gimnasio 🏋️‍♀️</span></label>
         <label><input type="checkbox" name="ejercicio[]" value="HIIT/Funcional ⏱️"><span>HIIT/Funcional ⏱️</span></label>
         <label><input type="checkbox" name="ejercicio[]" value="En casa sin equipo 🏠"><span>En casa sin equipo 🏠</span></label>
-        <textarea name="ejercicio_favorito" placeholder="¿Qué ejercicios disfrutas más o te han funcionado mejor?"></textarea>
       </section>
 
       <section>
@@ -293,7 +289,6 @@
         <label><input type="checkbox" name="suplementacion[]" value="Digestión (probióticos, kéfir, enzimas) 🦠"><span>Digestión (probióticos, kéfir, enzimas) 🦠</span></label>
         <label><input type="checkbox" name="suplementacion[]" value="Estética y composición corporal (creatina, colágeno, proteína) ✨"><span>Estética y composición corporal (creatina, colágeno, proteína) ✨</span></label>
         <label><input type="checkbox" name="suplementacion[]" value="No me interesa tomar suplementos ❌"><span>No me interesa tomar suplementos ❌</span></label>
-        <textarea name="suplementos_interes" placeholder="¿Hay algún suplemento específico que quieras probar o te hayan recomendado?"></textarea>
       </section>
       
       <section>
@@ -301,7 +296,6 @@
         <label><input type="checkbox" name="motivacion_check[]" value="Quiero resultados rápidos con poco esfuerzo ⏳"><span>Quiero resultados rápidos con poco esfuerzo ⏳</span></label>
         <label><input type="checkbox" name="motivacion_check[]" value="Estoy dispuesta a aprender y crear hábitos 📈"><span>Estoy dispuesta a aprender y crear hábitos 📈</span></label>
         <label><input type="checkbox" name="motivacion_check[]" value="Estoy 100% comprometida con mi cambio 💥"><span>Estoy 100% comprometida con mi cambio 💥</span></label>
-        <textarea name="motivacion" placeholder="¿Qué te haría feliz al verte frente al espejo en 3 meses?"></textarea>
       </section>
 
       <section>
@@ -356,7 +350,7 @@
 
   <div id="warningPopup" class="popup">
     <div class="popup-icon">⚠️</div>
-    <h3>Por favor selecciona al menos una opción, completa algún campo de texto y responde la sección de información personal.</h3>
+    <h3>Por favor selecciona al menos una opción y responde la sección de información personal.</h3>
     <button onclick="closeWarning()">Cerrar</button>
   </div>
 
@@ -373,12 +367,7 @@
     function validateForm(event) {
       event.preventDefault();
       const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-      const textareas = document.querySelectorAll('textarea');
       let hasChecked = checkboxes.length > 0;
-      let hasText = false;
-      textareas.forEach(t => {
-        if (t.value.trim() !== '') hasText = true;
-      });
 
       // Verificar que se hayan completado los campos requeridos
       const requiredFields = document.querySelectorAll('input[required], textarea[required]');
@@ -387,7 +376,7 @@
         if (field.value.trim() === '') allRequiredFilled = false;
       });
 
-      if (!hasChecked || !hasText || !allRequiredFilled) {
+      if (!hasChecked || !allRequiredFilled) {
         showWarning();
         return false;
       }
